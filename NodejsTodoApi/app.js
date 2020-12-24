@@ -1,16 +1,23 @@
-const db = require('../NodejsTodoApi/models')
-const { sequelize } = require('sequelize')
-const models = require('../NodejsTodoApi/models')
+const Hapi = require('hapi');
+const filepaths = require('filepaths');
 
-async function response(request, h) {
-  let list = await models.List.findAll();
-  return list ;  
-}
-  
-  module.exports = {
-    method: 'GET',
-    path: '/',
-    options: { 
-      handler: response
-    }
-  };
+const server = Hapi.server({
+    port: 3000,
+    host: 'localhost'
+});
+
+let routes = filepaths.getSync(__dirname + '/src');
+for(let route of routes)
+    server.route( require(route) );
+
+const init = async () => {
+    await server.start();
+    console.log('Server running on %s', server.info.uri);
+};
+
+process.on('unhandledRejection', (err) => {
+    console.log(err);
+    process.exit(1);
+});
+
+init();

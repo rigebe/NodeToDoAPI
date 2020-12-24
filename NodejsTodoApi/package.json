@@ -6,6 +6,7 @@
   "dependencies": {
     "filepaths": "^0.3.0",
     "hapi": "^18.1.0",
+    "hapi-sequelize-crud2": "^2.7.4",
     "nodemon": "^2.0.6",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",

@@ -2,23 +2,25 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('Task', [{
-      Text: '1',
-      Status: false,
-      Number: 1,
+    await queryInterface.bulkInsert('tasks', [{
+      text: '1',
+      status: false,
+      number: 1,
+      list_id: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     }], {});
-    await queryInterface.bulkInsert('Task', [{
-      Text: '2',
-      Status: false,
-      Number: 2,
+    await queryInterface.bulkInsert('tasks', [{
+      text: '2',
+      status: false,
+      number: 2,
+      list_id: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     }], {});  
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('Task', null, {}); 
+    await queryInterface.bulkDelete('tasks', null, {}); 
   }
 };
