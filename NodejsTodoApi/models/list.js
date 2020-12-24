@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       List.belongsToMany(models.Task,{
         through: 'TaskList',
-        as: 'tasks',
+        as: 'Task',
         foreignKey: 'list_id'
       })
     }

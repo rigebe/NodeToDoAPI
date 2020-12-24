@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('tasks', [{
+    await queryInterface.bulkInsert('Tasks', [{
       text: '1',
       status: false,
       number: 1,
@@ -10,7 +10,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }], {});
-    await queryInterface.bulkInsert('tasks', [{
+    await queryInterface.bulkInsert('Tasks', [{
       text: '2',
       status: false,
       number: 2,
@@ -21,6 +21,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('tasks', null, {}); 
+    await queryInterface.bulkDelete('Tasks', null, {}); 
   }
 };
