@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Task.hasOne(models.List,{
+      Task.belongsTo(models.List,{
           foreignKey: 'list_id',
           as: 'list'
         });

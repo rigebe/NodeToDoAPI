@@ -11,9 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      List.belongsToMany(models.Task,{
-        through: 'TaskList',
-        as: 'Task',
+      List.hasMany(models.Task,{
         foreignKey: 'list_id'
       })
     }
