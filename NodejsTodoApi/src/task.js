@@ -12,26 +12,6 @@ async function get_tasks(request, h) {
     }
   }
 
-  async function get_lists(request, h) {
-    try {
-      let lists = await models.List.findAll();
-      return lists;
-    } 
-    catch(e) {
-      console.log(e.name + ' ' + e.message);
-    }
-  }
-
-  async function post_list(request, h) {
-    try {
-      await models.List.create(request.payload);
-      return h.response(request.payload).code(200);
-    } 
-    catch(e) {
-      console.log(e.name + ' ' + e.message);
-    }
-  }
-
   async function post_task(request, h) {
     try {
       await models.Task.create(request.payload);
@@ -73,23 +53,6 @@ async function get_tasks(request, h) {
       handler: get_tasks
     }
   },{
-    method: 'GET',
-    path: '/lists',
-    options: { 
-      handler: get_lists
-    }
-  },{
-    method: 'POST',
-    path: '/lists',
-    options: { 
-      handler: post_list, 
-      validate: {
-        payload: {
-          Name: Joi.string().min(1).max(20).required()
-        }
-      }
-    }
-  },{
     method: 'POST',
     path: '/tasks',
     options: { 
@@ -117,7 +80,7 @@ async function get_tasks(request, h) {
     }
   },
   {
-    method: 'PUT',
+    method: ['PUT','PUTCH'],
     path: '/tasks/number/{id}',
     options: { 
       handler: set_task_number,
