@@ -42,22 +42,10 @@ async function get_tasks(request, h) {
     }
   }
 
-  async function set_task_true(request, h) {
+  async function set_task_status(request, h) {
     try {
       const task = await models.Task.findOne({where: {id: request.params.id}})
-      task.status = true;
-      task.save();
-      return task;
-    } 
-    catch(e) {
-      console.log(e.name + ' ' + e.message);
-    }
-  }
-
-  async function set_task_false(request, h) {
-    try {
-      const task = await models.Task.findOne({where: {id: request.params.id}})
-      task.status = false;
+      task.status = request.payload.status;
       task.save();
       return task;
     } 
@@ -69,7 +57,7 @@ async function get_tasks(request, h) {
   async function set_task_number(request, h) {
     try {
       const task = await models.Task.findOne({where: {id: request.params.id}})
-      task.number = input.number;
+      task.number = request.payload.number;
       task.save();
       return task;
     } 
@@ -115,22 +103,28 @@ async function get_tasks(request, h) {
         }
       }
     }
-  },{
-    method: 'GET',
-    path: '/tasks/{id}/true',
+  },
+  {
+    method: ['PUT','PUTCH'],
+    path: '/tasks/status/{id}',
     options: { 
-      handler: set_task_true
+      handler: set_task_status,
+      validate: {
+        payload: {
+          status: Joi.boolean().required()
+        }
+      }
     }
-  },{
-    method: 'GET',
-    path: '/tasks/{id}/false',
+  },
+  {
+    method: 'PUT',
+    path: '/tasks/number/{id}',
     options: { 
-      handler: set_task_false
-    }
-  },{
-    method: 'GET',
-    path: '/tasks/{id}',
-    options: { 
-      handler: set_task_number
+      handler: set_task_number,
+      validate: {
+        payload: {
+          number: Joi.number().integer().required()
+        }
+      }
     }
   }];
